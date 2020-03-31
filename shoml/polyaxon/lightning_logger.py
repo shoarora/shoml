@@ -21,11 +21,11 @@ class PolyaxonLogger(LightningLoggerBase):
 
     @property
     def name(self):
-        self.experiment.project_name
+        return self.experiment.project_name
 
     @property
     def version(self):
-        self.experiment.experiment_id
+        return self.experiment.experiment_id
 
     @rank_zero_only
     def log_hyperparams(self, params):
