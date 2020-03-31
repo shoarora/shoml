@@ -8,12 +8,16 @@ from torch import is_tensor
 
 class PolyaxonLogger(LightningLoggerBase):
     def __init__(self, use_tensorboard=True):
-        self.experiment = Experiment()
+        self._experiment = Experiment()
 
         self.use_tensorboard = use_tensorboard
         if use_tensorboard:
-            save_dir = os.path.join(self.experiment.get_outputs_path(), "tensorboard")
+            save_dir = os.path.join(self._experiment.get_outputs_path(), "tensorboard")
             self.tensorboard = TensorBoardLogger(save_dir)
+
+    @property
+    def experiment(self):
+        return self._experiment
 
     @property
     def name(self):
