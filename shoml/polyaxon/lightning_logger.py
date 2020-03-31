@@ -15,17 +15,23 @@ class PolyaxonLogger(LightningLoggerBase):
             save_dir = os.path.join(self._experiment.get_outputs_path(), "tensorboard")
             self.tensorboard = TensorBoardLogger(save_dir)
 
+        self._name = self._experiment.project_name
+        self._version = self._experiment.experiment_id
+        self._experiment = None
+
     @property
     def experiment(self):
+        if self._experiment is None:
+            self._experiment = Experiment()
         return self._experiment
 
     @property
     def name(self):
-        return self.experiment.project_name
+        return self._name
 
     @property
     def version(self):
-        return self.experiment.experiment_id
+        return self._version
 
     @rank_zero_only
     def log_hyperparams(self, params):
