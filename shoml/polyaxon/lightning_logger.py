@@ -57,3 +57,4 @@ class PolyaxonLogger(LightningLoggerBase):
     def finalize(self, status):
         if self.use_tensorboard:
             self.tensorboard.finalize(status)
+        self._experiment = None
