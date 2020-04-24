@@ -8,6 +8,7 @@ from torch import is_tensor
 
 class PolyaxonLogger(LightningLoggerBase):
     def __init__(self, use_tensorboard=True):
+        super().__init__()
         self._experiment = Experiment()
 
         self.use_tensorboard = use_tensorboard
